@@ -469,7 +469,64 @@
         font-size: 1rem;    /* readable paragraph */
     }
 }
+    /* 🔥 FIX ABOUT US ON MOBILE */
+@media (max-width: 600px) {
 
+  /* reduce side padding that was crushing content */
+  .section {
+    padding: 60px 20px;
+  }
+
+  .about-text {
+    padding: 25px 20px;
+    max-width: 100%;
+  }
+
+  .about-us-container {
+    max-width: 100%;
+    padding: 0;
+    text-align: center;
+  }
+
+  .about-us-container h2 {
+    font-size: 1.9rem;
+    letter-spacing: 2px;
+  }
+
+  .about-us-container p {
+    font-size: 1rem;
+    line-height: 1.6;
+    word-spacing: normal;
+    white-space: normal; /* PREVENT vertical stacking */
+  }
+
+}
+  /* 🔥 REMOVE BLACK BOX / BORDERS FROM ABOUT */
+.about-text {
+    background: none !important;
+    border-radius: 0 !important;
+    backdrop-filter: none !important;
+    padding: 0 !important;
+}
+@media (max-width: 600px) {
+    .about-text {
+        padding: 0 !important;
+    }
+
+    .about-us-container {
+        max-width: 100%;
+        padding: 0 15px !important;
+    }
+}
+#about.section {
+    padding-top: 60px;
+    padding-bottom: 60px;
+}
+.about-us-container {
+    background: none !important;
+    padding: 0 !important;
+    max-width: 900px;
+}
 
   </style>
 </head>
@@ -607,17 +664,27 @@
       </div>
     </div>
   </div>
-    <section class="about-us-section">
-  <div class="about-us-container">
-    <h2 class="section-title">ABOUT US</h2>
-    <p>
-      At Gima Regato's BBQ, we don't just serve food — we create moments. 
-      Whether you’re sharing laughs with friends, enjoying a late–night craving, 
-      or bonding with family over freshly grilled favorites, our BBQ is made to 
-      bring people together around the fire.
-    </p>
+    <section id="about" class="section about">
+  <div class="about-text">
+    
+    <div class="embers">
+      <span></span><span></span><span></span><span></span><span></span>
+      <span></span><span></span><span></span><span></span><span></span>
+    </div>
+
+    <div class="about-us-container">
+      <h2 class="section-title">ABOUT US</h2>
+      <p>
+        At Gima Regato's BBQ, we don't just serve food — we create moments. 
+        Whether you’re sharing laughs with friends, enjoying a late–night craving, 
+        or bonding with family over freshly grilled favorites, our BBQ is made to 
+        bring people together around the fire.
+      </p>
+    </div>
+
   </div>
 </section>
+
 
 <footer id="contact">
   <p>📍 Philippines | 📞 0955 500 8854</p>
