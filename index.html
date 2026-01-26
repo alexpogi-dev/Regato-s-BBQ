@@ -422,13 +422,18 @@
     flex: 0 0 300px;
   }
 }
-
-
-
 /* Remove duplicate sections on mobile */
 @media(max-width: 480px){
-  .about .embers { display: none; } /* keep it clean */
+  .embers span {
+    animation: emberUpMobile 5s linear infinite;
+  }
 }
+
+@keyframes emberUpMobile {
+  from { transform: translateY(0) scale(1); opacity: 1; }
+  to { transform: translateY(-150px) scale(0); opacity: 0; }
+}
+
 /* About Us section container */
 .about-us-container {
     max-width: 800px; /* controls the paragraph width */
