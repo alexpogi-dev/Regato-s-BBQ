@@ -425,42 +425,37 @@
   }
 }
 
-/* ABOUT US */
+/* ABOUT US - MOBILE FIX */
 .about {
   background: #111;
   display: flex;
   justify-content: center;
-  padding: 60px 20px;
+  padding: 40px 20px; /* smaller padding for mobile */
 }
 
 .about-text {
-  position: relative;
-  max-width: 900px;
-  padding: 40px 30px;
+  max-width: 100%; /* allow full width on mobile */
+  width: 95%;      /* slight margin on sides */
+  padding: 25px 20px;
   text-align: center;
-  background: rgba(0, 0, 0, 0.65);
-  border-radius: 24px;
-  backdrop-filter: blur(6px);
+  background: rgba(0,0,0,0.65);
+  border-radius: 20px;
+  backdrop-filter: blur(4px);
 }
 
 .about-text h3 {
-  font-family: 'Bebas Neue', cursive;
-  font-size: 32px;
-  color: var(--primary);
-  margin-bottom: 20px;
+  font-size: 28px; /* smaller for mobile */
+  margin-bottom: 15px;
 }
 
 .about-text p {
-  font-size: 16px;
-  line-height: 1.6;
-  color: #fff;
+  font-size: 15px; 
+  line-height: 1.5;
 }
 
-/* Remove extra ember clutter for mobile */
-.embers { display: none; }
-
-@media(min-width: 1024px){
-  .embers { display: block; }
+/* Remove duplicate sections on mobile */
+@media(max-width: 480px){
+  .about .embers { display: none; } /* keep it clean */
 }
 
 
