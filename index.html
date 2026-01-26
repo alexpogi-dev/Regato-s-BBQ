@@ -457,6 +457,25 @@
 @media(max-width: 480px){
   .about .embers { display: none; } /* keep it clean */
 }
+/* About Us section container */
+.about-us-container {
+    max-width: 800px; /* controls the paragraph width */
+    margin: 0 auto;   /* centers it */
+    padding: 20px;
+    text-align: center;
+    line-height: 1.6;
+    font-size: 1rem;
+}
+
+/* Responsive adjustments for smaller screens */
+@media screen and (max-width: 600px) {
+    .about-us-container {
+        padding: 15px;        /* reduce padding */
+        font-size: 0.9rem;    /* slightly smaller text */
+        line-height: 1.4;     /* tighter line spacing */
+        word-break: normal;   /* prevents forced vertical breaks */
+    }
+}
 
 
   </style>
@@ -595,13 +614,13 @@
       </div>
     </div>
   </div>
-    <section id="about" class="section about">
-  <div class="about-text fade-in">
-    <h3>ABOUT US</h3>
+    <section class="about-us-section">
+  <div class="about-us-container">
+    <h2 class="section-title">ABOUT US</h2>
     <p>
-      At Gima Regato's BBQ, we don’t just serve food — we create moments.
-      Whether you’re sharing laughs with friends, enjoying a late-night craving,
-      or bonding with family over freshly grilled favorites, our BBQ is made to
+      At Gima Regato's BBQ, we don't just serve food — we create moments. 
+      Whether you’re sharing laughs with friends, enjoying a late–night craving, 
+      or bonding with family over freshly grilled favorites, our BBQ is made to 
       bring people together around the fire.
     </p>
   </div>
