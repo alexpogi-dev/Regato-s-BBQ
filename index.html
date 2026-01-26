@@ -1,4 +1,4 @@
-=<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
@@ -312,8 +312,9 @@
 .embers {
   position: absolute;
   inset: 0;
-  z-index: 2;
+  z-index: 1;
   pointer-events: none;
+  opacity: 0.7;
 }
 .about-text h3,
 .about-text p {
@@ -421,18 +422,13 @@
     flex: 0 0 300px;
   }
 }
+
+
+
 /* Remove duplicate sections on mobile */
 @media(max-width: 480px){
-  .embers span {
-    animation: emberUpMobile 5s linear infinite;
-  }
+  .about .embers { display: none; } /* keep it clean */
 }
-
-@keyframes emberUpMobile {
-  from { transform: translateY(0) scale(1); opacity: 1; }
-  to { transform: translateY(-150px) scale(0); opacity: 0; }
-}
-
 /* About Us section container */
 .about-us-container {
     max-width: 800px; /* controls the paragraph width */
@@ -614,10 +610,10 @@
 ================================ */
 @media (max-width: 768px) {
   .about-wrapper {
-  position: relative;  /* parent for embers */
-  overflow: hidden;    /* keep embers inside */
-  min-height: 400px;   /* ensures space for embers */
-}
+    grid-template-columns: 1fr;
+    gap: 30px;
+    text-align: center;
+  }
 
   .about-content h2 {
     font-size: 36px;
@@ -724,27 +720,65 @@ body.menu-open main {
   transform: scale(0.98);
   transition: filter 0.4s ease, transform 0.4s ease;
 }
-.embers span {
-  width: 6px;
-  height: 6px;
-  border-radius: 50%;
-  background: radial-gradient(circle, #fff59d, #ff9800, #e65100);
+.about-divider {
+  width: 2px;
+  height: 320px;
+  margin: auto;
+  background: linear-gradient(
+    to bottom,
+    transparent,
+    rgba(255, 140, 0, 0.6),
+    transparent
+  );
+  box-shadow: 0 0 30px rgba(255, 120, 0, 0.4);
+  position: relative;
+}
+
+.about-divider::after {
+  content: "";
   position: absolute;
-  bottom: 0;
-  animation: emberUp 6s linear infinite;
+  inset: -40px;
+  background: url("smoke.png"); /* optional */
+  opacity: 0.25;
+  filter: blur(12px);
 }
-@keyframes emberUp {
-  0% { transform: translateY(0) scale(1); opacity: 1; }
-  100% { transform: translateY(-300px) scale(0); opacity: 0; }
+.about-divider {
+  width: 6px;                  /* thin vertical flame */
+  height: 250px;               /* adjustable height */
+  margin: 40px auto;           /* centered with some spacing */
+  background: linear-gradient(
+    to bottom,
+    rgba(255, 235, 59, 0.8),
+    rgba(255, 152, 0, 0.7),
+    rgba(244, 67, 54, 0.6),
+    rgba(255, 87, 34, 0.5),
+    rgba(255, 140, 0, 0.3)
+  );
+  border-radius: 50%;          /* rounded “flame” edges */
+  box-shadow: 0 0 20px rgba(255, 140, 0, 0.7),
+              0 0 40px rgba(255, 87, 34, 0.5),
+              0 0 60px rgba(255, 152, 0, 0.3);
+  position: relative;
+  animation: flameFlicker 1.2s infinite alternate;
 }
+
+@keyframes flameFlicker {
+  0%   { transform: scaleY(1) translateX(0); opacity: 0.8; }
+  25%  { transform: scaleY(1.1) translateX(-1px); opacity: 0.9; }
+  50%  { transform: scaleY(0.95) translateX(1px); opacity: 0.85; }
+  75%  { transform: scaleY(1.05) translateX(-1px); opacity: 0.9; }
+  100% { transform: scaleY(1) translateX(0); opacity: 0.8; }
+}
+
   </style>
 </head>
 
 <body>
-  <div id="pageFade"></div>
+<div id="pageFade"></div>
 <div class="mobile-top-bar">
     <button class="order-btn" onclick="openOrderMenu()">Order Now</button>
 </div>
+
 <header>
   <div class="logo">
     <img src="photo1.png" alt="Logo">
@@ -880,8 +914,6 @@ body.menu-open main {
   <div class="thumbs">
   </div>
 </div>
-
-  
     <div class="about-content">
       <h2>ABOUT US</h2>
       <p>
@@ -896,7 +928,6 @@ body.menu-open main {
     </div>
 
   </div>
-
 </section>
 
 <footer id="contact">
