@@ -312,9 +312,8 @@
 .embers {
   position: absolute;
   inset: 0;
-  z-index: 1;
+  z-index: 2;
   pointer-events: none;
-  opacity: 0.7;
 }
 .about-text h3,
 .about-text p {
@@ -615,10 +614,10 @@
 ================================ */
 @media (max-width: 768px) {
   .about-wrapper {
-    grid-template-columns: 1fr;
-    gap: 30px;
-    text-align: center;
-  }
+  position: relative;  /* parent for embers */
+  overflow: hidden;    /* keep embers inside */
+  min-height: 400px;   /* ensures space for embers */
+}
 
   .about-content h2 {
     font-size: 36px;
@@ -725,16 +724,27 @@ body.menu-open main {
   transform: scale(0.98);
   transition: filter 0.4s ease, transform 0.4s ease;
 }
-
+.embers span {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: radial-gradient(circle, #fff59d, #ff9800, #e65100);
+  position: absolute;
+  bottom: 0;
+  animation: emberUp 6s linear infinite;
+}
+@keyframes emberUp {
+  0% { transform: translateY(0) scale(1); opacity: 1; }
+  100% { transform: translateY(-300px) scale(0); opacity: 0; }
+}
   </style>
 </head>
 
 <body>
-<div id="pageFade"></div>
+  <div id="pageFade"></div>
 <div class="mobile-top-bar">
     <button class="order-btn" onclick="openOrderMenu()">Order Now</button>
 </div>
-
 <header>
   <div class="logo">
     <img src="photo1.png" alt="Logo">
@@ -868,8 +878,6 @@ body.menu-open main {
       <div class="img-smoke"></div>
   <img src="photo11.jpg" class="main-img" alt="BBQ grilling">
   <div class="thumbs">
-    
-   
   </div>
 </div>
 
