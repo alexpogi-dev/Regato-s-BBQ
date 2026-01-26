@@ -219,7 +219,7 @@
       to { transform: translateY(-300px) scale(0); opacity: 0; }
     }
 
-    footer { background: #000; padding: 40px 20px; text-align: center; color: #aaa; font-size: 14px; }
+    footer { background: #000000; padding: 30px 100px; text-align: center; color: #ffffff; font-size: 15px; width: 100%; }
 
     .hidden { display: none; }
     /* REVIEWS — REAL WEBSITE STYLE */
@@ -694,74 +694,38 @@
   opacity: 1;
   transform: translateY(0);
 }
-/* STREET VIBE SECTION */
-.street-vibe {
-  background: radial-gradient(circle at top, #1a1a1a, #000);
-  padding: 80px 20px;
-  text-align: center;
+html {
+  scroll-behavior: smooth;
 }
 
-.street-vibe h3 {
-  font-family: 'Bebas Neue', cursive;
-  font-size: 40px;
-  color: #ff9800;
-  margin-bottom: 40px;
-  letter-spacing: 2px;
-  text-shadow: 0 0 8px rgba(255,152,0,.9);
+/* Smooth fade-out when closing */
+nav {
+  transition: opacity 0.45s ease, transform 0.45s ease;
+}
+#pageFade {
+  position: fixed;
+  inset: 0;
+  background: #000;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.4s ease;
+  z-index: 999;
 }
 
-.vibe-grid {
-  max-width: 1100px;
-  margin: auto;
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 30px;
+#pageFade.active {
+  opacity: 0.35;
 }
-
-.vibe-card {
-  position: relative;
-  overflow: hidden;
-  border-radius: 20px;
-  box-shadow: 0 20px 40px rgba(0,0,0,.6);
-}
-
-.vibe-card img {
-  width: 100%;
-  height: 280px;
-  object-fit: cover;
-  transition: transform 0.6s ease;
-}
-
-.vibe-card span {
-  position: absolute;
-  bottom: 0;
-  width: 100%;
-  padding: 14px 0;
-  background: linear-gradient(to top, rgba(0,0,0,.9), transparent);
-  color: #ffb74d;
-  font-size: 18px;
-}
-
-.vibe-card:hover img {
-  transform: scale(1.08);
-}
-
-/* Mobile */
-@media (max-width: 768px) {
-  .vibe-grid {
-    grid-template-columns: 1fr;
-  }
-
-  .vibe-card img {
-    height: 220px;
-  }
+body.menu-open main {
+  filter: blur(6px);
+  transform: scale(0.98);
+  transition: filter 0.4s ease, transform 0.4s ease;
 }
 
   </style>
 </head>
 
 <body>
-
+<div id="pageFade"></div>
 <div class="mobile-top-bar">
     <button class="order-btn" onclick="openOrderMenu()">Order Now</button>
 </div>
@@ -777,7 +741,6 @@
     <a href="#about">About</a>
   </nav>
 </header>
-
 <section class="hero">
   <div class="hero-overlay"></div>
   <div class="hero-inner">
@@ -816,7 +779,6 @@
     <button class="hero-btn">✅ Place Order</button>
   </div>
 </div>
-
 <section id="menu" class="section">
   <h3>Our Best Sellers</h3>
   <div class="menu-grid">
@@ -894,12 +856,9 @@
     </div>
   </div>
    <section id="about" class="section about">
-
   <!-- Smoky Divider -->
   <div class="smoke-divider"></div>
-
   <div class="about-wrapper fade-on-scroll">
-
     <div class="about-gallery">
       <div class="img-smoke"></div>
   <img src="photo11.jpg" class="main-img" alt="BBQ grilling">
@@ -926,33 +885,6 @@
   </div>
 
 </section>
-
-<section class="street-vibe">
-
-  <h3>FROM THE STREETS</h3>
-
-  <div class="vibe-grid">
-
-    <div class="vibe-card fade-on-scroll">
-      <img src="photo6.jpg" alt="Night street BBQ">
-      <span>Late-Night Cravings</span>
-    </div>
-
-    <div class="vibe-card fade-on-scroll">
-      <img src="photo8.jpg" alt="Grilling at night">
-      <span>Fire on the Grill</span>
-    </div>
-
-    <div class="vibe-card fade-on-scroll">
-      <img src="photo9.jpg" alt="Friends eating BBQ">
-      <span>Shared Moments</span>
-    </div>
-
-  </div>
-
-</section>
-
-
 
 <footer id="contact">
   <p>📍 Philippines | 📞 0955 500 8854</p>
@@ -1020,12 +952,31 @@ const fadeObserver = new IntersectionObserver(entries => {
 
 fadeElements.forEach(el => fadeObserver.observe(el));
 
-// About gallery image switch
-document.querySelectorAll('.about-gallery .thumbs img').forEach(img => {
-  img.addEventListener('click', () => {
-    document.querySelector('.about-gallery .main-img').src = img.src;
+const navMenu = document.getElementById("navMenu");
+const navLinks = navMenu.querySelectorAll("a");
+
+function toggleMenu() {
+  navMenu.classList.toggle("show");
+}
+
+/* Close menu + smooth scroll */
+navLinks.forEach(link => {
+  link.addEventListener("click", e => {
+    e.preventDefault();
+
+    const targetId = link.getAttribute("data-target");
+    const target = document.getElementById(targetId);
+
+    // Close menu smoothly
+    navMenu.classList.remove("show");
+
+    // Delay scroll to match fade-out
+    setTimeout(() => {
+      target.scrollIntoView({ behavior: "smooth" });
+    }, 300);
   });
 });
+
 
 </script>
 
