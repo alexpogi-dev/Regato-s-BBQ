@@ -458,6 +458,27 @@
     color: #ffffff; /* lighter warm tone for readability */
     text-shadow: 0 0 4px rgba(255, 153, 0, 0.5);
 }
+/* Mobile-friendly About Us */
+@media screen and (max-width: 600px) {
+    .about-us-container {
+        max-width: 90%;      /* almost full width */
+        padding: 15px 20px;  /* comfortable padding */
+        font-size: 0.95rem;  /* readable size */
+        line-height: 1.5;    /* better spacing */
+        text-align: center;  /* keep it centered */
+        display: flex;
+        flex-direction: column;
+        gap: 15px;           /* space between heading and paragraph */
+    }
+
+    .about-us-container h2.section-title {
+        font-size: 1.8rem;  /* slightly smaller on mobile */
+    }
+
+    .about-us-container p {
+        font-size: 1rem;    /* readable paragraph */
+    }
+}
 
 
   </style>
