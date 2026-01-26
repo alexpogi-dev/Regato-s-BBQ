@@ -224,6 +224,172 @@
     footer { background: #000; padding: 40px 20px; text-align: center; color: #aaa; font-size: 14px; }
 
     .hidden { display: none; }
+    /* REVIEWS — REAL WEBSITE STYLE */
+.reviews {
+  background: radial-gradient(circle at top, #1a1a1a, #000);
+  padding: 100px 30px;
+}
+
+.reviews-title {
+  text-align: center;
+  font-family: 'Bebas Neue', cursive;
+  font-size: 42px;
+  color: var(--primary);
+  margin-bottom: 50px;
+  text-shadow:
+    0 0 8px rgba(255,152,0,.9),
+    0 0 25px rgba(255,87,34,.6);
+}
+
+.reviews-grid {
+  max-width: 1000px;
+  margin: auto;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 30px;
+}
+
+.review-card {
+  position: relative;
+  border-radius: 18px;
+  overflow: hidden;
+  box-shadow: 0 20px 40px rgba(0,0,0,.6);
+  transition: transform .35s ease, box-shadow .35s ease;
+}
+
+.review-card:hover {
+  transform: translateY(-10px) scale(1.04);
+  box-shadow: 0 30px 60px rgba(255,140,0,.35);
+}
+
+.review-card img {
+  width: 100%;
+  height: 260px;
+  object-fit: cover;
+}
+
+.review-card span {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  padding: 12px;
+  text-align: center;
+  background: linear-gradient(to top, rgba(0,0,0,.9), transparent);
+  color: gold;
+  font-size: 18px;
+}
+/* DISTRIBUTE EMBERS ACROSS WIDTH */
+.embers span:nth-child(1)  { left: 5%;  animation-duration: 3s; }
+.embers span:nth-child(2)  { left: 10%; animation-duration: 4s; }
+.embers span:nth-child(3)  { left: 15%; animation-duration: 2.5s; }
+.embers span:nth-child(4)  { left: 20%; animation-duration: 3.5s; }
+.embers span:nth-child(5)  { left: 25%; animation-duration: 4.2s; }
+.embers span:nth-child(6)  { left: 30%; animation-duration: 3s; }
+.embers span:nth-child(7)  { left: 35%; animation-duration: 2.8s; }
+.embers span:nth-child(8)  { left: 40%; animation-duration: 3.8s; }
+.embers span:nth-child(9)  { left: 45%; animation-duration: 2.6s; }
+.embers span:nth-child(10) { left: 50%; animation-duration: 4.5s; }
+.embers span:nth-child(11) { left: 55%; animation-duration: 3.2s; }
+.embers span:nth-child(12) { left: 60%; animation-duration: 2.7s; }
+.embers span:nth-child(13) { left: 65%; animation-duration: 4s; }
+.embers span:nth-child(14) { left: 70%; animation-duration: 3.4s; }
+.embers span:nth-child(15) { left: 75%; animation-duration: 2.5s; }
+.embers span:nth-child(16) { left: 80%; animation-duration: 4.1s; }
+.embers span:nth-child(17) { left: 85%; animation-duration: 3s; }
+.embers span:nth-child(18) { left: 90%; animation-duration: 3.7s; }
+.embers span:nth-child(19) { left: 95%; animation-duration: 2.4s; }
+.embers span:nth-child(20) { left: 12%; animation-duration: 4.8s; }
+
+@keyframes emberUp {
+  0% {
+    transform: translateY(0) scale(1);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(-320px) scale(0);
+    opacity: 0;
+  }
+}
+/* 🔥 WORKING DENSE EMBERS */
+.embers {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  opacity: 0.7;
+}
+.about-text h3,
+.about-text p {
+  position: relative;
+  z-index: 2;
+}
+/* spread embers */
+.embers span:nth-child(odd) {
+  animation-duration: 3s;
+}
+.embers span:nth-child(even) {
+  animation-duration: 4.5s;
+}
+
+@keyframes emberUp {
+  from {
+    transform: translateY(0) scale(1);
+    opacity: 1;
+  }
+  to {
+    transform: translateY(-300px) scale(0);
+    opacity: 0;
+  }
+}
+.embers span {
+  position: absolute;
+  bottom: -20px;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: radial-gradient(circle, #fff59d, #ff9800, #e65100);
+  opacity: 0.9;
+  animation: emberUp 6s linear infinite;
+}
+@media (max-width: 480px) {
+  .reviews-title {
+    font-size: 32px;
+  }
+
+  .review-card img {
+    height: 200px;
+  }
+}
+.review-card {
+  opacity: 0;
+  transform: translateY(40px);
+  transition: transform 0.6s ease-out, opacity 0.6s ease-out;
+}
+
+.review-card.fade-in-up {
+  opacity: 1;
+  transform: translateY(0);
+}
+.reviews-carousel {
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+  padding-bottom: 10px;
+}
+
+.reviews-grid {
+  display: flex;
+  gap: 20px;
+}
+
+.review-card {
+  flex: 0 0 80%;
+  scroll-snap-align: center;
+}
+.reviews-carousel::-webkit-scrollbar {
+  display: none;
+}
+
   </style>
 </head>
 
@@ -291,7 +457,7 @@
       <img src="photo2.jpg" alt="BBQ">
       <div style="padding: 20px;">
         <h4 style="color: var(--primary);">Hotdog BBQ</h4>
-        <p>Classic Filipino pork BBQ with sweet smoky glaze.</p>
+        <p>Classic Filipino Hotdog BBQ with sweet smoky glaze.</p>
       </div>
     </div>
     <div class="menu-card">
@@ -301,15 +467,67 @@
         <p>Juicy grilled pork marinated in spices.</p>
       </div>
     </div>
+    <div class="menu-card">
+      <img src="photo4.jpeg" alt="BBQ">
+      <div style="padding: 20px;">
+        <h4 style="color: var(--primary);">Isaw BBQ</h4>
+        <p>Street food favorites grilled fresh.</p>
+      </div>
+    </div>
+
+  </div>
+</section>
+<section id="reviews" class="reviews">
+  <h3 class="reviews-title">
+    ⭐ 4.9 / 5 — Rated by Customers
+  </h3>
+<div class="reviews-carousel"></div>
+  <div class="reviews-grid">
+    <div class="review-card">
+      <img src="photo5.jpg" alt="Customer review">
+      <span>★★★★★</span>
+    </div>
+    <div class="review-card">
+      <img src="photo6.jpg" alt="Customer review">
+      <span>★★★★★</span>
+    </div>
+    <div class="review-card">
+      <img src="photo7.jpg" alt="Customer review">
+      <span>★★★★★</span>
+    </div>
+    <div class="review-card">
+      <img src="photo8.jpg" alt="Customer review">
+      <span>★★★★★</span>
+    </div>
   </div>
 </section>
 
 <section id="about" class="section about">
   <div class="about-text">
-    <div class="embers">
-      <span></span><span></span><span></span><span></span><span></span>
-      <span style="left:20%"></span><span style="left:40%"></span><span style="left:60%"></span>
+    <div class="about-text fade-in">
+  <div class="embers">
+    <span></span><span></span><span></span><span></span><span></span>
+    <span></span><span></span><span></span><span></span><span></span>
+    <span></span><span></span><span></span><span></span><span></span>
+    <span></span><span></span><span></span><span></span><span></span>
+    <span></span><span></span><span></span><span></span><span></span>
+    <span></span><span></span><span></span><span></span><span></span>
+    <span></span><span></span><span></span><span></span><span></span>
+    <span></span><span></span><span></span><span></span><span></span>
+  </div>
+
+  <!-- MODAL -->
+  <div id="aboutModal" class="modal">
+    <div class="modal-content about-modal-content">
+      <span class="close" onclick="closeAboutModal()">×</span>
+      <div class="about-images-horizontal">
+        <img src="photo5.jpg" alt="Customer 1" loading="lazy">
+        <img src="photo6.jpg" alt="Customer 2" loading="lazy">
+        <img src="photo7.jpg" alt="Customer 3" loading="lazy">
+        <img src="photo8.jpg" alt="Customer 4" loading="lazy">
+      </div>
     </div>
+  </div>
     <h3>ABOUT US</h3>
     <p>
       At Gima Regato's BBQ, we don’t just serve food — we create moments.
@@ -360,6 +578,19 @@
     const offset = window.scrollY * 0.4;
     hero.style.backgroundPosition = `center ${offset}px`;
   });
+  // Animate reviews when they come into view
+const reviewCards = document.querySelectorAll('.review-card');
+
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(entry => {
+    if(entry.isIntersecting){
+      entry.target.classList.add('fade-in-up');
+      observer.unobserve(entry.target);
+    }
+  });
+}, { threshold: 0.2 });
+
+reviewCards.forEach(card => observer.observe(card));
 </script>
 
 </body>
