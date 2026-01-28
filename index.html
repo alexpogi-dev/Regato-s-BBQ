@@ -2,16 +2,20 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Gima Regato's BBQ</title>
 
   <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
-
+  <link rel="preload" href="photo1.png" as="image">
   <style>
     :root {
       --primary: #ff9800;
       --accent: #c62828;
-      --dark: #1b1b1b;
+      --dark: #0f0f0f;
+      --text: #ffffff;
+      --muted: #bbbbbb;
+      --card: #1c1c1c;
+      scroll-behavior: smooth;
     }
 
     * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -19,1010 +23,321 @@
     body {
       font-family: 'Poppins', sans-serif;
       background: var(--dark);
-      color: #fff;
+      color: var(--text);
+      line-height: 1.5;
     }
 
-    /* --- NEW MOBILE BAR STYLES --- */
-    .mobile-top-bar {
-      display: none; /* Hidden on PC */
+    a { color: inherit; }
+    img { max-width: 100%; display: block; }
+
+    /* Accessibility helpers */
+    .sr-only {
+      position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
+      overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border: 0;
     }
 
-    @media screen and (max-width: 480px) {
+    /* --- MOBILE CTA BAR --- */
+    .mobile-top-bar { display: none; }
+    @media (max-width: 480px) {
       .mobile-top-bar {
-        display: flex !important;
-        justify-content: center;
-        align-items: center;
-        width: 100%;
-        padding: 15px 0;
-        background: #000;
-        position: sticky;
-        top: 0;
-        z-index: 1001;
+        display: flex; justify-content: center; align-items: center;
+        width: 100%; padding: 14px 0; background: #000; position: sticky; top: 0; z-index: 1001;
       }
-
       .mobile-top-bar .order-btn {
-        display: block !important;
-        width: 90% !important;
-        max-width: 380px;
-        background-color: #d32f2f;
-        color: white;
-        padding: 12px 0;
-        border-radius: 50px;
-        border: none;
-        font-weight: bold;
-        text-align: center;
-        box-shadow: 0 4px 15px rgba(0,0,0,0.3);
-        text-transform: uppercase;
-        cursor: pointer;
+        width: 92%; max-width: 420px; background: #d32f2f; color: #fff; padding: 12px 0; border-radius: 999px;
+        border: none; font-weight: 700; text-transform: uppercase; box-shadow: 0 8px 20px rgba(0,0,0,.35); cursor: pointer;
       }
-
-      header {
-        position: relative !important; /* Prevents overlap on mobile */
-        top: 0 !important;
-      }
+      header { position: relative; top: 0; }
     }
 
     /* --- HEADER & NAV --- */
     header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 20px 60px;
-      background: rgba(0,0,0,.85);
-      position: sticky;
-      top: 0;
-      z-index: 100;
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 16px 24px; background: rgba(0,0,0,.75); position: sticky; top: 0; z-index: 100;
+      backdrop-filter: saturate(1.2) blur(6px);
+      border-bottom: 1px solid rgba(255,255,255,.06);
     }
+    @media (min-width: 720px){ header { padding: 18px 48px; } }
 
-    .logo { display: flex; align-items: center; gap: 15px; }
-    .logo img { width: 60px; }
-    .logo h1 {
-      font-family: 'Bebas Neue', cursive;
-      color: var(--primary);
-      letter-spacing: 2px;
-    }
+    .logo { display: flex; align-items: center; gap: 12px; }
+    .logo img { width: 56px; height: 56px; object-fit: cover; border-radius: 12px; }
+    .logo h1 { font-family: 'Bebas Neue', cursive; color: var(--primary); letter-spacing: 2px; font-size: clamp(22px,4vw,32px); }
 
-    nav a {
-      margin-left: 25px;
-      text-decoration: none;
-      color: #fff;
-    }
-
-    nav a:hover { color: var(--primary); }
+    nav a { margin-left: 18px; text-decoration: none; color: var(--text); opacity: .9; }
+    nav a:hover, nav a:focus { color: var(--primary); opacity: 1; }
 
     /* HERO */
     .hero {
-      position: relative;
-      min-height: 100vh;
-      background: url("bbq-bg.jpg") center/cover no-repeat fixed;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 20px;
+      position: relative; min-height: 100vh;
+      background: url("bg.jpg") center/cover no-repeat fixed;
+      display: grid; place-items: center; padding: 20px;
+      isolation: isolate;
     }
-
-    .hero-overlay {
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(rgba(0,0,0,0.75), rgba(0,0,0,0.85));
-    }
-
-    .hero-inner {
-      position: relative;
-      z-index: 2;
-      text-align: center;
-      max-width: 700px;
-    }
-
+    .hero-overlay { position: absolute; inset: 0; background: linear-gradient(rgba(0,0,0,.75), rgba(0,0,0,.88)); z-index: -1; }
+    .hero-inner { text-align: center; max-width: 760px; padding: 0 8px; }
     .hero h1 {
-      font-family: 'Bebas Neue', cursive;
-      font-size: clamp(42px, 8vw, 72px);
-      letter-spacing: 3px;
-      color: #ff9800;
-      margin-bottom: 15px;
-      text-shadow: 0 0 10px rgba(255,152,0,0.8), 0 0 25px rgba(255,87,34,0.6);
+      font-family: 'Bebas Neue', cursive; font-size: clamp(42px, 8vw, 72px); letter-spacing: 3px; color: var(--primary);
+      margin-bottom: 12px; text-shadow: 0 0 10px rgba(255,152,0,.7), 0 0 22px rgba(255,87,34,.55);
     }
+    .hero-sub { font-size: 16px; opacity: .92; margin-bottom: 26px; color: var(--muted); }
+    .hero-actions { display: flex; flex-wrap: wrap; gap: 12px; justify-content: center; }
 
-    .hero-sub { font-size: 16px; opacity: 0.9; margin-bottom: 30px; }
+    .btn { display:inline-flex; align-items:center; gap:8px; border: none; cursor:pointer; border-radius: 999px; }
+    .btn-primary { background: var(--accent); color:#fff; padding: 14px 28px; font-weight: 600; }
+    .btn-link { color:#ffcf80; text-decoration:none; padding: 14px 18px; }
 
-    .hero-actions { display: flex; flex-wrap: wrap; gap: 15px; justify-content: center; }
+    .hero-meta h3 { font-size: 16px; color: var(--muted); font-weight: 400; margin-top: 10px; }
 
-    .hero-btn {
-      background: #c62828;
-      color: white;
-      border: none;
-      padding: 14px 32px;
-      border-radius: 30px;
-      font-size: 16px;
-      cursor: pointer;
-    }
-
-    .hero-link { color: #ffb74d; text-decoration: none; font-size: 15px; padding: 14px 20px; }
-
-    /* MODAL STYLES */
-    .modal {
-      position: fixed;
-      inset: 0;
-      background: rgba(0,0,0,.85);
-      display: none;
-      justify-content: center;
-      align-items: center;
-      z-index: 9999;
-    }
+    /* MODAL */
+    .modal { position: fixed; inset: 0; background: rgba(0,0,0,.85); display: none; justify-content: center; align-items: center; z-index: 9999; }
     .modal.show { display: flex; }
     .modal-content {
-      background: #1e1e1e;
-      padding: 30px;
-      border-radius: 20px;
-      width: 90%;
-      max-width: 500px;
-      text-align: center;
+      position: relative; background: #1a1a1a; padding: 24px; border-radius: 16px; width: min(92vw,560px);
+      box-shadow: 0 24px 64px rgba(0,0,0,.6);
     }
-    .close { position: absolute; right: 25px; top: 15px; cursor: pointer; font-size: 28px; }
+    .close { position: absolute; right: 16px; top: 10px; cursor: pointer; font-size: 28px; line-height: 1; }
 
-    /* MENU SECTION */
-    .section { padding: 80px 60px; }
-    .section h3 {
-      text-align: center;
-      font-family: 'Bebas Neue', cursive;
-      font-size: 42px;
-      margin-bottom: 50px;
-      color: var(--primary);
-      text-shadow: 0 0 6px rgba(255,152,0,0.8), 0 0 18px rgba(255,87,34,0.6);
-    }
+    /* SECTIONS */
+    .section { padding: 72px 20px; }
+    @media (min-width: 720px){ .section { padding: 88px 48px; } }
+    .section h3 { text-align: center; font-family: 'Bebas Neue', cursive; font-size: clamp(32px,4.6vw,44px); margin-bottom: 40px; color: var(--primary);
+      text-shadow: 0 0 6px rgba(255,152,0,.7), 0 0 18px rgba(255,87,34,.55); }
 
-    .menu-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-      gap: 30px;
-    }
-
-    .menu-card {
-      background: #2a2a2a;
-      border-radius: 15px;
-      overflow: hidden;
-      transition: 0.35s cubic-bezier(0.25, 0.8, 0.25, 1);
-    }
-
-    .menu-card:hover {
-      transform: translateY(-12px) scale(1.04);
-      box-shadow: 0 25px 50px rgba(255,140,0,0.3);
-    }
-
+    /* MENU GRID */
+    .menu-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 24px; max-width: 1100px; margin: 0 auto; }
+    .menu-card { background: var(--card); border-radius: 16px; overflow: hidden; transition: transform .3s ease, box-shadow .3s ease; border: 1px solid rgba(255,255,255,.06); }
+    .menu-card:hover { transform: translateY(-10px) scale(1.02); box-shadow: 0 24px 48px rgba(255,140,0,.22); }
     .menu-card img { width: 100%; height: 200px; object-fit: cover; }
+    .menu-card .body { padding: 18px; }
+    .menu-card .title { color: var(--primary); font-weight: 600; margin-bottom: 6px; }
+    .menu-card .desc { color: var(--muted); font-size: 14px; }
 
-     /* ABOUT US SECTION */
-    .about { background: #111; display: flex; flex-direction: column; align-items: center; gap: 50px; }
-    .about-text {
-      position: relative;
-      max-width: 900px;
-      padding: 40px 30px;
-      text-align: center;
-      background: rgba(0, 0, 0, 0.65);
-      border-radius: 24px;
-      backdrop-filter: blur(6px);
-    }
-    /* EMBERS EFFECT */
-    .embers span {
-      position: absolute;
-      bottom: -20px;
-      width: 6px;
-      height: 6px;
-      border-radius: 50%;
-      background: radial-gradient(circle, #fff59d, #ff9800, #e65100);
-      opacity: 0.9;
-      animation: emberUp 3s linear infinite;
-    }
+    /* ABOUT */
+    .about { background: #111; position: relative; overflow: hidden; }
+    .about-us-container { max-width: 820px; margin: 0 auto; text-align: center; padding: 0 20px; }
+    .about-us-container h2 { font-family: 'Bebas Neue', cursive; color: var(--primary); margin-bottom: 14px; }
+    .about-us-container p { color: #fff; text-shadow: 0 0 4px rgba(255,153,0,.45); }
 
-    @keyframes emberUp {
-      from { transform: translateY(0) scale(1); opacity: 1; }
-      to { transform: translateY(-300px) scale(0); opacity: 0; }
-    }
+    /* EMBERS */
+    .embers { position: absolute; inset: 0; z-index: 0; pointer-events: none; opacity: .65; }
+    .about-text, .about-us-container { position: relative; z-index: 1; }
+    .embers span { position: absolute; bottom: -20px; width: 6px; height: 6px; border-radius: 50%; background: radial-gradient(circle, #fff59d, #ff9800, #e65100); opacity: .9; animation: emberUp 6s linear infinite; }
+    .embers span:nth-child(odd){ animation-duration: 3.2s; }
+    .embers span:nth-child(even){ animation-duration: 4.6s; }
+    .embers span:nth-child(1){ left:5%; } .embers span:nth-child(2){ left:12%; } .embers span:nth-child(3){ left:18%; } .embers span:nth-child(4){ left:26%; } .embers span:nth-child(5){ left:33%; }
+    .embers span:nth-child(6){ left:41%; } .embers span:nth-child(7){ left:48%; } .embers span:nth-child(8){ left:56%; } .embers span:nth-child(9){ left:64%; } .embers span:nth-child(10){ left:72%; }
+    .embers span:nth-child(11){ left:79%; } .embers span:nth-child(12){ left:86%; } .embers span:nth-child(13){ left:93%; }
 
-    footer { background: #000000; padding: 40px 20px; text-align: center; color: #ffffff; font-size: 15px; width: 100%; }
+    @keyframes emberUp { from { transform: translateY(0) scale(1); opacity: 1; } to { transform: translateY(-300px) scale(0); opacity: 0; } }
 
+    /* REVIEWS */
+    .reviews { background: radial-gradient(circle at top, #1a1a1a, #000); padding: 60px 20px; position: relative; }
+    .reviews-title { text-align: center; font-family: 'Bebas Neue', cursive; font-size: clamp(28px,4vw,40px); color: var(--primary); margin-bottom: 28px; text-shadow: 0 0 8px rgba(255,152,0,.8), 0 0 20px rgba(255,87,34,.55); }
+    .reviews-carousel { display:flex; overflow-x:auto; scroll-snap-type:x mandatory; -webkit-overflow-scrolling:touch; gap:20px; padding-bottom: 10px; }
+    .reviews-carousel::-webkit-scrollbar { display: none; }
+    .review-card { flex: 0 0 80%; scroll-snap-align:center; border-radius: 16px; overflow:hidden; box-shadow: 0 15px 30px rgba(0,0,0,.5); position:relative; transition: transform .35s ease, box-shadow .35s ease; opacity:0; transform: translateY(40px); }
+    .review-card img { width: 100%; height: 200px; object-fit: cover; }
+    .review-card span { position:absolute; bottom:0; width:100%; padding: 10px 0; text-align:center; background: linear-gradient(to top, rgba(0,0,0,.9), transparent); color: gold; font-size: 18px; }
+    .review-card.fade-in-up { opacity: 1; transform: translateY(0); }
+    @media (min-width: 768px){ .reviews-carousel { justify-content:center; gap: 30px; } .review-card{ flex: 0 0 300px; } }
+
+    /* UTIL */
     .hidden { display: none; }
-    /* REVIEWS — REAL WEBSITE STYLE */
-.reviews {
-  background: radial-gradient(circle at top, #1a1a1a, #000);
-  padding: 100px 30px;
-}
-
-.reviews-title {
-  text-align: center;
-  font-family: 'Bebas Neue', cursive;
-  font-size: 42px;
-  color: var(--primary);
-  margin-bottom: 50px;
-  text-shadow:
-    0 0 8px rgba(255,152,0,.9),
-    0 0 25px rgba(255,87,34,.6);
-}
-
-.reviews-grid {
-  max-width: 1000px;
-  margin: auto;
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-  gap: 30px;
-}
-
-.review-card {
-  position: relative;
-  border-radius: 18px;
-  overflow: hidden;
-  box-shadow: 0 20px 40px rgba(0,0,0,.6);
-  transition: transform .35s ease, box-shadow .35s ease;
-}
-
-.review-card:hover {
-  transform: translateY(-10px) scale(1.04);
-  box-shadow: 0 30px 60px rgba(255,140,0,.35);
-}
-
-.review-card img {
-  width: 100%;
-  height: 260px;
-  object-fit: cover;
-}
-
-.review-card span {
-  position: absolute;
-  bottom: 0;
-  width: 100%;
-  padding: 12px;
-  text-align: center;
-  background: linear-gradient(to top, rgba(0,0,0,.9), transparent);
-  color: gold;
-  font-size: 18px;
-}
-/* DISTRIBUTE EMBERS ACROSS WIDTH */
-.embers span:nth-child(1)  { left: 5%;  animation-duration: 3s; }
-.embers span:nth-child(2)  { left: 10%; animation-duration: 4s; }
-.embers span:nth-child(3)  { left: 15%; animation-duration: 2.5s; }
-.embers span:nth-child(4)  { left: 20%; animation-duration: 3.5s; }
-.embers span:nth-child(5)  { left: 25%; animation-duration: 4.2s; }
-.embers span:nth-child(6)  { left: 30%; animation-duration: 3s; }
-.embers span:nth-child(7)  { left: 35%; animation-duration: 2.8s; }
-.embers span:nth-child(8)  { left: 40%; animation-duration: 3.8s; }
-.embers span:nth-child(9)  { left: 45%; animation-duration: 2.6s; }
-.embers span:nth-child(10) { left: 50%; animation-duration: 4.5s; }
-.embers span:nth-child(11) { left: 55%; animation-duration: 3.2s; }
-.embers span:nth-child(12) { left: 60%; animation-duration: 2.7s; }
-.embers span:nth-child(13) { left: 65%; animation-duration: 4s; }
-.embers span:nth-child(14) { left: 70%; animation-duration: 3.4s; }
-.embers span:nth-child(15) { left: 75%; animation-duration: 2.5s; }
-.embers span:nth-child(16) { left: 80%; animation-duration: 4.1s; }
-.embers span:nth-child(17) { left: 85%; animation-duration: 3s; }
-.embers span:nth-child(18) { left: 90%; animation-duration: 3.7s; }
-.embers span:nth-child(19) { left: 95%; animation-duration: 2.4s; }
-.embers span:nth-child(20) { left: 12%; animation-duration: 4.8s; }
-
-@keyframes emberUp {
-  0% {
-    transform: translateY(0) scale(1);
-    opacity: 1;
-  }
-  100% {
-    transform: translateY(-320px) scale(0);
-    opacity: 0;
-  }
-}
-/* 🔥 WORKING DENSE EMBERS */
-.embers {
-  position: absolute;
-  inset: 0;
-  z-index: 1;
-  pointer-events: none;
-  opacity: 0.7;
-}
-.about-text h3,
-.about-text p {
-  position: relative;
-  z-index: 2;
-}
-/* spread embers */
-.embers span:nth-child(odd) {
-  animation-duration: 3s;
-}
-.embers span:nth-child(even) {
-  animation-duration: 4.5s;
-}
-
-@keyframes emberUp {
-  from {
-    transform: translateY(0) scale(1);
-    opacity: 1;
-  }
-  to {
-    transform: translateY(-300px) scale(0);
-    opacity: 0;
-  }
-}
-.embers span {
-  position: absolute;
-  bottom: -20px;
-  width: 6px;
-  height: 6px;
-  border-radius: 50%;
-  background: radial-gradient(circle, #fff59d, #ff9800, #e65100);
-  opacity: 0.9;
-  animation: emberUp 6s linear infinite;
-}
-/* REVIEWS */
-.reviews {
-  background: radial-gradient(circle at top, #1a1a1a, #000);
-  padding: 60px 20px;
-  position: relative;
-}
-
-.reviews-title {
-  text-align: center;
-  font-family: 'Bebas Neue', cursive;
-  font-size: 32px;
-  color: var(--primary);
-  margin-bottom: 30px;
-  text-shadow: 0 0 8px rgba(255,152,0,.9), 0 0 20px rgba(255,87,34,.6);
-}
-
-/* Swipeable carousel for mobile */
-.reviews-carousel {
-  display: flex;
-  overflow-x: auto;
-  scroll-snap-type: x mandatory;
-  -webkit-overflow-scrolling: touch;
-  gap: 20px;
-  padding-bottom: 10px;
-}
-
-.reviews-carousel::-webkit-scrollbar { display: none; }
-
-.review-card {
-  flex: 0 0 80%;
-  scroll-snap-align: center;
-  border-radius: 18px;
-  overflow: hidden;
-  box-shadow: 0 15px 30px rgba(0,0,0,.5);
-  position: relative;
-  transition: transform 0.35s ease, box-shadow 0.35s ease;
-  opacity: 0;
-  transform: translateY(40px);
-}
-
-.review-card img {
-  width: 100%;
-  height: 200px;
-  object-fit: cover;
-}
-
-.review-card span {
-  position: absolute;
-  bottom: 0;
-  width: 100%;
-  padding: 10px 0;
-  text-align: center;
-  background: linear-gradient(to top, rgba(0,0,0,.9), transparent);
-  color: gold;
-  font-size: 18px;
-}
-
-/* Fade-in animation */
-.review-card.fade-in-up {
-  opacity: 1;
-  transform: translateY(0);
-}
-
-/* Desktop: show multiple cards */
-@media(min-width: 768px) {
-  .reviews-carousel {
-    justify-content: center;
-    gap: 30px;
-  }
-  .review-card {
-    flex: 0 0 300px;
-  }
-}
-
-
-
-/* Remove duplicate sections on mobile */
-@media(max-width: 480px){
-  .about .embers { display: none; } /* keep it clean */
-}
-/* About Us section container */
-.about-us-container {
-    max-width: 800px; /* controls the paragraph width */
-    margin: 0 auto;   /* centers it */
-    padding: 20px;
-    text-align: center;
-    line-height: 1.6;
-    font-size: 1rem;
-}
-.about-us-container h2.section-title {
-    color: #ff9800; /* bright warm orange */
-    text-shadow: 0 0 6px rgba(255,152,0,0.8), 0 0 12px rgba(255,87,34,0.6);
-}
-
-.about-us-container p {
-    color: #ffffff; /* lighter warm tone for readability */
-    text-shadow: 0 0 4px rgba(255, 153, 0, 0.5);
-}
-/* Mobile-friendly About Us */
-@media screen and (max-width: 600px) {
-    .about-us-container {
-        max-width: 90%;      /* almost full width */
-        padding: 15px 20px;  /* comfortable padding */
-        font-size: 0.95rem;  /* readable size */
-        line-height: 1.5;    /* better spacing */
-        text-align: center;  /* keep it centered */
-        display: flex;
-        flex-direction: column;
-        gap: 15px;           /* space between heading and paragraph */
-    }
-
-    .about-us-container h2.section-title {
-        font-size: 1.8rem;  /* slightly smaller on mobile */
-    }
-
-    .about-us-container p {
-        font-size: 1rem;    /* readable paragraph */
-    }
-}
-    /* 🔥 FIX ABOUT US ON MOBILE */
-@media (max-width: 600px) {
-
-  /* reduce side padding that was crushing content */
-  .section {
-    padding: 60px 20px;
-  }
-  .about-us-container p {
-    font-size: 1rem;
-    line-height: 1.6;
-    word-spacing: normal;
-    white-space: normal; /* PREVENT vertical stacking */
-  }
-
-}
-  /* 🔥 REMOVE BLACK BOX / BORDERS FROM ABOUT */
-.about-text {
-    background: none !important;
-    border-radius: 0 !important;
-    backdrop-filter: none !important;
-    padding: 0 !important;
-}
-@media screen and (max-width: 600px) {
-    .about-us-container {
-        max-width: 100%;
-        padding: 0 15px !important;
-    }
-}
-#about.section {
-    padding-top: 60px;
-    padding-bottom: 60px;
-}
-/* ABOUT — CLEAN, NO BLACK BOX */
-.about {
-  background: #111;
-}
-
-.about-text {
-  position: relative;
-  max-width: 900px;
-  margin: auto;
-  padding: 0;              /* NO BOX */
-  background: none;        /* NO BLACK */
-  border-radius: 0;
-}
-
-.about-us-container {
-  max-width: 800px;
-  margin: auto;
-  text-align: center;
-  padding: 0 20px;
-}
-
-.about-us-container h2 {
-  font-family: 'Bebas Neue', cursive;
-  color: #ff9800;
-  margin-bottom: 15px;
-}
-
-.about-us-container p {
-  line-height: 1.6;
-  font-size: 1rem;
-  white-space: normal;
-}
-
-/* MOBILE FIX */
-@media (max-width: 600px) {
-  .section {
-    padding: 60px 20px;
-  }
-}
-/* ===============================
-   ABOUT — FOODPANDA STYLE
-================================ */
-
-.about {
-  background: #111;
-}
-
-/* Smoky divider */
-.smoke-divider {
-  height: 120px;
-  background:
-    radial-gradient(circle at 50% 120%, rgba(255,255,255,0.15), transparent 60%),
-    linear-gradient(to bottom, transparent, rgba(255,255,255,0.08), transparent);
-  filter: blur(12px);
-  opacity: 0.7;
-  margin-bottom: 40px;
-}
-
-/* Layout */
-.about-wrapper {
-  max-width: 1100px;
-  margin: auto;
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 50px;
-  align-items: center;
-}
-
-/* Image */
-.about-image img {
-  width: 100%;
-  border-radius: 18px;
-  box-shadow: 0 20px 40px rgba(0,0,0,0.6);
-}
-
-/* Text */
-.about-content h2 {
-  font-family: 'Bebas Neue', cursive;
-  font-size: 42px;
-  color: #ff9800;
-  margin-bottom: 20px;
-  letter-spacing: 2px;
-}
-
-.about-content p {
-  font-size: 1rem;
-  line-height: 1.7;
-  color: #f5f5f5;
-  margin-bottom: 16px;
-}
-
-/* ===============================
-   FADE-IN SCROLL ANIMATION
-================================ */
-.fade-on-scroll {
-  opacity: 0;
-  transform: translateY(40px);
-  transition: opacity 0.8s ease, transform 0.8s ease;
-}
-
-.fade-on-scroll.visible {
-  opacity: 1;
-  transform: translateY(0);
-}
-
-/* ===============================
-   MOBILE FIX
-================================ */
-@media (max-width: 768px) {
-  .about-wrapper {
-    grid-template-columns: 1fr;
-    gap: 30px;
-    text-align: center;
-  }
-
-  .about-content h2 {
-    font-size: 36px;
-  }
-
-  .about-image img {
-    max-height: 260px;
-    object-fit: cover;
-  }
-}
-/* ABOUT IMAGE GALLERY */
-.about-gallery {
-  display: flex;
-  flex-direction: column;
-  gap: 15px;
-}
-
-.about-gallery .main-img {
-  width: 100%;
-  border-radius: 18px;
-  box-shadow: 0 20px 40px rgba(0,0,0,0.6);
-  object-fit: cover;
-}
-
-/* Thumbnails */
-.about-gallery .thumbs {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 10px;
-}
-
-.about-gallery .thumbs img {
-  width: 100%;
-  height: 90px;
-  object-fit: cover;
-  border-radius: 12px;
-  cursor: pointer;
-  opacity: 0.85;
-  transition: transform 0.25s ease, opacity 0.25s ease;
-}
-
-.about-gallery .thumbs img:hover {
-  transform: scale(1.05);
-  opacity: 1;
-}
-
-/* Mobile */
-@media (max-width: 768px) {
-  .about-gallery .thumbs {
-    grid-template-columns: repeat(2, 1fr);
-  }
-
-  .about-gallery .thumbs img {
-    height: 110px;
-  }
-}
-/* SMOKE HOVER EFFECT */
-.img-smoke {
-  position: relative;
-  overflow: hidden;
-  border-radius: 18px;
-}
-
-.img-smoke::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background:
-    radial-gradient(circle at 50% 120%, rgba(255,255,255,0.35), transparent 60%),
-    linear-gradient(to top, rgba(255,255,255,0.15), transparent);
-  opacity: 0;
-  filter: blur(12px);
-  transform: translateY(20px);
-  transition: opacity 0.6s ease, transform 0.6s ease;
-}
-
-.img-smoke:hover::after {
-  opacity: 1;
-  transform: translateY(0);
-}
-html {
-  scroll-behavior: smooth;
-}
-
-/* Smooth fade-out when closing */
-nav {
-  transition: opacity 0.45s ease, transform 0.45s ease;
-}
-#pageFade {
-  position: fixed;
-  inset: 0;
-  background: #000;
-  opacity: 0;
-  pointer-events: none;
-  transition: opacity 0.4s ease;
-  z-index: 999;
-}
-
-#pageFade.active {
-  opacity: 0.35;
-}
-body.menu-open main {
-  filter: blur(6px);
-  transform: scale(0.98);
-  transition: filter 0.4s ease, transform 0.4s ease;
-}
-.about-divider {
-  width: 2px;
-  height: 320px;
-  margin: auto;
-  background: linear-gradient(
-    to bottom,
-    transparent,
-    rgba(255, 140, 0, 0.6),
-    transparent
-  );
-  box-shadow: 0 0 30px rgba(255, 120, 0, 0.4);
-  position: relative;
-}
-
-.about-divider::after {
-  content: "";
-  position: absolute;
-  inset: -40px;
-  background: url("smoke.png"); /* optional */
-  opacity: 0.25;
-  filter: blur(12px);
-}
-.about-divider {
-  width: 6px;                  /* thin vertical flame */
-  height: 250px;               /* adjustable height */
-  margin: 40px auto;           /* centered with some spacing */
-  background: linear-gradient(
-    to bottom,
-    rgba(255, 235, 59, 0.8),
-    rgba(255, 152, 0, 0.7),
-    rgba(244, 67, 54, 0.6),
-    rgba(255, 87, 34, 0.5),
-    rgba(255, 140, 0, 0.3)
-  );
-  border-radius: 50%;          /* rounded “flame” edges */
-  box-shadow: 0 0 20px rgba(255, 140, 0, 0.7),
-              0 0 40px rgba(255, 87, 34, 0.5),
-              0 0 60px rgba(255, 152, 0, 0.3);
-  position: relative;
-  animation: flameFlicker 1.2s infinite alternate;
-}
-
-@keyframes flameFlicker {
-  0%   { transform: scaleY(1) translateX(0); opacity: 0.8; }
-  25%  { transform: scaleY(1.1) translateX(-1px); opacity: 0.9; }
-  50%  { transform: scaleY(0.95) translateX(1px); opacity: 0.85; }
-  75%  { transform: scaleY(1.05) translateX(-1px); opacity: 0.9; }
-  100% { transform: scaleY(1) translateX(0); opacity: 0.8; }
-}
-
   </style>
 </head>
-
 <body>
-<div id="pageFade"></div>
-<div class="mobile-top-bar">
-    <button class="order-btn" onclick="openOrderMenu()">Order Now</button>
-</div>
+  <a class="sr-only" href="#menu">Skip to menu</a>
 
-<header>
-  <div class="logo">
-    <img src="photo1.png" alt="Logo">
-    <h1>Gima Regato's BBQ</h1>
+  <div class="mobile-top-bar">
+    <button class="order-btn" aria-haspopup="dialog" aria-controls="menuModal" onclick="openOrderMenu()">Order Now</button>
   </div>
-  <nav>
-    <a href="#">Home</a>
-    <a href="#menu">Menu</a>
-    <a href="#about">About</a>
-  </nav>
-</header>
-<section class="hero">
-  <div class="hero-overlay"></div>
-  <div class="hero-inner">
-    <h1>SMOKED. GRILLED. PERFECT.</h1>
-    <p class="hero-sub">Authentic Filipino BBQ grilled fresh every day.</p>
-    <div class="hero-actions">
-      <button class="hero-btn" onclick="openOrderMenu()">Order Now</button>
-      <a href="#menu" class="hero-link">View Menu</a>
-    </div>
-    <div class="hero-meta">
-       <h3>Open Daily 3PM – 11PM</h3>
-    </div>
-  </div>
-</section>
 
-<div id="menuModal" class="modal">
-  <div class="modal-content">
-    <span class="close" onclick="closeMenuModal()">×</span>
-    <h3>Select Your Order</h3>
-    <div style="text-align: left; margin: 20px 0;">
-      <label style="display: block; margin-bottom: 10px;"><input type="checkbox" value="Pork BBQ"> 🍖 Pork BBQ – ₱25</label>
-      <label style="display: block; margin-bottom: 10px;"><input type="checkbox" value="Hotdog BBQ"> 🌭 Hotdog BBQ – ₱20</label>
-      <label style="display: block; margin-bottom: 10px;"><input type="checkbox" value="Isaw"> 🔥 Isaw – ₱15</label>
+  <header>
+    <div class="logo">
+      <img src="photo1.png" alt="Gima Regato's BBQ logo" loading="eager">
+      <h1>Gima Regato's BBQ</h1>
     </div>
-    <button class="hero-btn" onclick="proceedToCheckout()">Continue</button>
-  </div>
-</div>
+    <nav aria-label="Primary">
+      <a href="#">Home</a>
+      <a href="#menu">Menu</a>
+      <a href="#about">About</a>
+    </nav>
+  </header>
 
-<div id="orderModal" class="modal">
-  <div class="modal-content">
-    <span class="close" onclick="closeOrderMenu()">×</span>
-    <h3>Complete Your Order</h3>
-    <div id="orderSummary" style="margin-bottom: 15px; color: #ff9800;"></div>
-    <input type="text" placeholder="Full Name" style="width:100%; padding:10px; margin-bottom:10px;">
-    <input type="time" style="width:100%; padding:10px; margin-bottom:10px;">
-    <button class="hero-btn">✅ Place Order</button>
+  <section class="hero" aria-label="Hero">
+    <div class="hero-overlay"></div>
+    <div class="hero-inner">
+      <h1>SMOKED. GRILLED. PERFECT.</h1>
+      <p class="hero-sub">Authentic Filipino BBQ grilled fresh every day.</p>
+      <div class="hero-actions">
+        <button class="btn btn-primary" aria-haspopup="dialog" aria-controls="menuModal" onclick="openOrderMenu()">Order Now</button>
+        <a href="#menu" class="btn btn-link">View Menu</a>
+      </div>
+      <div class="hero-meta"><h3>Open Daily 3PM – 11PM</h3></div>
+    </div>
+  </section>
+
+  <div id="menuModal" class="modal" role="dialog" aria-modal="true" aria-labelledby="menuTitle">
+    <div class="modal-content">
+      <button class="close" aria-label="Close" onclick="closeMenuModal()">×</button>
+      <h3 id="menuTitle">Select Your Order</h3>
+      <div style="text-align: left; margin: 18px 0;">
+        <label style="display:block; margin-bottom:10px;"><input type="checkbox" value="Pork BBQ"> 🍖 Pork BBQ – ₱25</label>
+        <label style="display:block; margin-bottom:10px;"><input type="checkbox" value="Hotdog BBQ"> 🌭 Hotdog BBQ – ₱20</label>
+        <label style="display:block; margin-bottom:10px;"><input type="checkbox" value="Isaw"> 🔥 Isaw – ₱15</label>
+      </div>
+      <button class="btn btn-primary" onclick="proceedToCheckout()">Continue</button>
+    </div>
   </div>
-</div>
-<section id="menu" class="section">
-  <h3>Our Best Sellers</h3>
-  <div class="menu-grid">
-    <div class="menu-card">
-      <img src="photo2.jpg" alt="BBQ">
-      <div style="padding: 20px;">
-        <h4 style="color: var(--primary);">Hotdog BBQ</h4>
-        <p>Classic Filipino Hotdog BBQ with sweet smoky glaze.</p>
+
+  <div id="orderModal" class="modal" role="dialog" aria-modal="true" aria-labelledby="orderTitle">
+    <div class="modal-content">
+      <button class="close" aria-label="Close" onclick="closeOrderMenu()">×</button>
+      <h3 id="orderTitle">Complete Your Order</h3>
+      <div id="orderSummary" style="margin-bottom: 12px; color: var(--primary);"></div>
+      <input id="customerName" type="text" placeholder="Full Name" style="width:100%; padding:10px; margin-bottom:10px; background:#121212; color:#fff; border:1px solid rgba(255,255,255,.1); border-radius:8px;">
+      <input id="pickupTime" type="time" style="width:100%; padding:10px; margin-bottom:10px; background:#121212; color:#fff; border:1px solid rgba(255,255,255,.1); border-radius:8px;">
+      <button class="btn btn-primary" onclick="placeOrder()">✅ Place Order</button>
+    </div>
+  </div>
+
+  <section id="menu" class="section" aria-labelledby="menuHeading">
+    <h3 id="menuHeading">Our Best Sellers</h3>
+    <div class="menu-grid">
+      <div class="menu-card">
+        <img src="photo2.jpg" alt="Hotdog BBQ" loading="lazy">
+        <div class="body">
+          <h4 class="title">Hotdog BBQ</h4>
+          <p class="desc">Classic Filipino Hotdog BBQ with sweet smoky glaze.</p>
+        </div>
+      </div>
+      <div class="menu-card">
+        <img src="photo3.jpg" alt="Pork BBQ" loading="lazy">
+        <div class="body">
+          <h4 class="title">Pork BBQ</h4>
+          <p class="desc">Juicy grilled pork marinated in spices.</p>
+        </div>
+      </div>
+      <div class="menu-card">
+        <img src="photo4.jpeg" alt="Isaw BBQ" loading="lazy">
+        <div class="body">
+          <h4 class="title">Isaw BBQ</h4>
+          <p class="desc">Street food favorites grilled fresh.</p>
+        </div>
       </div>
     </div>
-    <div class="menu-card">
-      <img src="photo3.jpg" alt="BBQ">
-      <div style="padding: 20px;">
-        <h4 style="color: var(--primary);">Pork BBQ</h4>
-        <p>Juicy grilled pork marinated in spices.</p>
+  </section>
+
+  <section id="reviews" class="reviews" aria-labelledby="reviewsHeading">
+    <h3 id="reviewsHeading" class="reviews-title">⭐ 4.9 / 5 — Rated by Customers</h3>
+    <div class="reviews-carousel">
+      <div class="review-card"><img src="photo5.jpg" alt="Customer enjoying BBQ" loading="lazy"><span>★★★★★</span></div>
+      <div class="review-card"><img src="photo6.jpg" alt="Grilled skewers close-up" loading="lazy"><span>★★★★★</span></div>
+      <div class="review-card"><img src="photo7.jpg" alt="Friends sharing BBQ" loading="lazy"><span>★★★★★</span></div>
+      <div class="review-card"><img src="photo8.jpg" alt="Street BBQ stall" loading="lazy"><span>★★★★★</span></div>
+    </div>
+  </section>
+
+  <section id="about" class="section about" aria-labelledby="aboutHeading">
+    <div class="about-text">
+      <div class="embers">
+        <span></span><span></span><span></span><span></span><span></span>
+        <span></span><span></span><span></span><span></span><span></span>
+        <span></span><span></span><span></span>
+      </div>
+      <div class="about-us-container">
+        <h2 id="aboutHeading" class="section-title">ABOUT US</h2>
+        <p>
+          At Gima Regato's BBQ, we don't just serve food — we create moments.
+          Whether you’re sharing laughs with friends, enjoying a late–night craving,
+          or bonding with family over freshly grilled favorites, our BBQ is made to
+          bring people together around the fire.
+        </p>
       </div>
     </div>
-    <div class="menu-card">
-      <img src="photo4.jpeg" alt="BBQ">
-      <div style="padding: 20px;">
-        <h4 style="color: var(--primary);">Isaw BBQ</h4>
-        <p>Street food favorites grilled fresh.</p>
-      </div>
-    </div>
+  </section>
 
-  </div>
-</section>
-<section id="reviews" class="reviews">
-  <h3 class="reviews-title">⭐ 4.9 / 5 — Rated by Customers</h3>
+  <footer id="contact" class="section" aria-label="Footer">
+    <p>📍 Philippines | 📞 0955 500 8854</p>
+    <p>© 2026 Gima Regato's BBQ. All rights reserved.</p>
+  </footer>
 
-  <div class="reviews-carousel">
-    <div class="review-card">
-      <img src="photo5.jpg" alt="Customer review">
-      <span>★★★★★</span>
-    </div>
-    <div class="review-card">
-      <img src="photo6.jpg" alt="Customer review">
-      <span>★★★★★</span>
-    </div>
-    <div class="review-card">
-      <img src="photo7.jpg" alt="Customer review">
-      <span>★★★★★</span>
-    </div>
-    <div class="review-card">
-      <img src="photo8.jpg" alt="Customer review">
-      <span>★★★★★</span>
-    </div>
-  </div>
-</section>
+  <script>
+    let selectedItems = [];
+    const menuModal = document.getElementById('menuModal');
+    const orderModal = document.getElementById('orderModal');
 
-<section id="about" class="section about">
-  <div class="about-text">
-    <div class="about-text fade-in">
-  <div class="embers">
-    <span></span><span></span><span></span><span></span><span></span>
-    <span></span><span></span><span></span><span></span><span></span>
-    <span></span><span></span><span></span><span></span><span></span>
-    <span></span><span></span><span></span><span></span><span></span>
-    <span></span><span></span><span></span><span></span><span></span>
-    <span></span><span></span><span></span><span></span><span></span>
-    <span></span><span></span><span></span><span></span><span></span>
-    <span></span><span></span><span></span><span></span><span></span>
-  </div>
-
-  <!-- MODAL -->
-  <div id="aboutModal" class="modal">
-    <div class="modal-content about-modal-content">
-      <span class="close" onclick="closeAboutModal()">×</span>
-      <div class="about-images-horizontal">
-        <img src="photo5.jpg" alt="Customer 1" loading="lazy">
-        <img src="photo6.jpg" alt="Customer 2" loading="lazy">
-        <img src="photo7.jpg" alt="Customer 3" loading="lazy">
-        <img src="photo8.jpg" alt="Customer 4" loading="lazy">
-      </div>
-    </div>
-  </div>
-   <section id="about" class="section about">
-  <!-- Smoky Divider -->
-  <div class="smoke-divider"></div>
-  <div class="about-wrapper fade-on-scroll">
-    <div class="about-gallery">
-      <div class="img-smoke"></div>
-  <img src="photo11.jpg" class="main-img" alt="BBQ grilling">
-  <div class="thumbs">
-  </div>
-</div>
-    <div class="about-content">
-      <h2>ABOUT US</h2>
-      <p>
-        At <strong>Gima Regato's BBQ</strong>, we don’t just grill food — we grill memories.
-        From afternoon cravings to late-night hangouts, our BBQ brings friends,
-        families, and neighbors together around smoky, flame-kissed favorites.
-      </p>
-      <p>
-        Inspired by classic Filipino street BBQ, every skewer is grilled fresh,
-        seasoned with care, and served with heart. Simple food. Real fire. Honest flavor.
-      </p>
-    </div>
-
-  </div>
-</section>
-
-<footer id="contact">
-  <p>📍 Philippines | 📞 0955 500 8854</p>
-  <p>© 2026 Gima Regato's BBQ. All rights reserved.</p>
-</footer>
-
-<script>
-  let selectedItems = [];
-
-  function openOrderMenu() {
-    document.getElementById("menuModal").classList.add("show");
-  }
-
-  function closeMenuModal() {
-    document.getElementById("menuModal").classList.remove("show");
-  }
-
-  function proceedToCheckout() {
-    selectedItems = [];
-    document.querySelectorAll("#menuModal input:checked").forEach(item => selectedItems.push(item.value));
-
-    if (selectedItems.length === 0) {
-      alert("Please select at least one item.");
-      return;
+    function trapFocus(modal){
+      const focusable = modal.querySelectorAll('button, [href], input, [tabindex]:not([tabindex="-1"])');
+      const first = focusable[0];
+      const last = focusable[focusable.length - 1];
+      function handler(e){
+        if(e.key === 'Tab'){
+          if(e.shiftKey && document.activeElement === first){ e.preventDefault(); last.focus(); }
+          else if(!e.shiftKey && document.activeElement === last){ e.preventDefault(); first.focus(); }
+        }
+        if(e.key === 'Escape'){ closeMenuModal(); closeOrderMenu(); }
+      }
+      modal.addEventListener('keydown', handler);
+      return () => modal.removeEventListener('keydown', handler);
     }
-    closeMenuModal();
-    const summary = document.getElementById("orderSummary");
-    summary.innerHTML = "<strong>Your Order:</strong><br>" + selectedItems.join(", ");
-    document.getElementById("orderModal").classList.add("show");
-  }
 
-  function closeOrderMenu() {
-    document.getElementById("orderModal").classList.remove("show");
-  }
+    function openOrderMenu() {
+      menuModal.classList.add('show');
+      const cleanup = trapFocus(menuModal);
+      menuModal.dataset.cleanup = '1';
+      setTimeout(()=> menuModal.querySelector('input, button')?.focus(), 0);
+    }
+    function closeMenuModal() {
+      if(menuModal.dataset.cleanup){ delete menuModal.dataset.cleanup; }
+      menuModal.classList.remove('show');
+    }
 
-  // Simple Parallax for Hero
-  window.addEventListener('scroll', () => {
+    function proceedToCheckout() {
+      selectedItems = [];
+      document.querySelectorAll('#menuModal input:checked').forEach(item => selectedItems.push(item.value));
+      if (selectedItems.length === 0) { alert('Please select at least one item.'); return; }
+      closeMenuModal();
+      const summary = document.getElementById('orderSummary');
+      summary.innerHTML = '<strong>Your Order:</strong><br>' + selectedItems.join(', ');
+      orderModal.classList.add('show');
+      setTimeout(()=> orderModal.querySelector('#customerName')?.focus(), 0);
+    }
+
+    function closeOrderMenu() { orderModal.classList.remove('show'); }
+
+    function placeOrder(){
+      const name = document.getElementById('customerName').value.trim();
+      const time = document.getElementById('pickupTime').value;
+      if(!name || !time){ alert('Please enter your name and pickup time.'); return; }
+      alert(`Thank you, ${name}! Your order for ${selectedItems.join(', ')} will be ready at ${time}.`);
+      closeOrderMenu();
+    }
+
+    // Simple Parallax for Hero (degrades gracefully on mobile)
     const hero = document.querySelector('.hero');
-    const offset = window.scrollY * 0.4;
-    hero.style.backgroundPosition = `center ${offset}px`;
-  });
-  // Animate reviews on scroll
-const reviewCards = document.querySelectorAll('.review-card');
-const observer = new IntersectionObserver(entries => {
-  entries.forEach(entry => {
-    if(entry.isIntersecting){
-      entry.target.classList.add('fade-in-up');
-      observer.unobserve(entry.target);
-    }
-  });
-}, { threshold: 0.2 });
+    window.addEventListener('scroll', () => {
+      const offset = window.scrollY * 0.35;
+      hero.style.backgroundPosition = `center ${offset}px`;
+    }, { passive: true });
 
-reviewCards.forEach(card => observer.observe(card));
-// Fade-in About section on scroll
-const fadeElements = document.querySelectorAll('.fade-on-scroll');
+    // Animate reviews on scroll
+    const reviewCards = document.querySelectorAll('.review-card');
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if(entry.isIntersecting){
+          entry.target.classList.add('fade-in-up');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.2 });
+    reviewCards.forEach(card => observer.observe(card));
 
-const fadeObserver = new IntersectionObserver(entries => {
-  entries.forEach(entry => {
-    if (entry.isIntersecting) {
-      entry.target.classList.add('visible');
-      fadeObserver.unobserve(entry.target);
-    }
-  });
-}, { threshold: 0.2 });
-
-fadeElements.forEach(el => fadeObserver.observe(el));
-
-const navMenu = document.getElementById("navMenu");
-const navLinks = navMenu.querySelectorAll("a");
-
-function toggleMenu() {
-  navMenu.classList.toggle("show");
-}
-
-/* Close menu + smooth scroll */
-navLinks.forEach(link => {
-  link.addEventListener("click", e => {
-    e.preventDefault();
-
-    const targetId = link.getAttribute("data-target");
-    const target = document.getElementById(targetId);
-
-    // Close menu smoothly
-    navMenu.classList.remove("show");
-
-    // Delay scroll to match fade-out
-    setTimeout(() => {
-      target.scrollIntoView({ behavior: "smooth" });
-    }, 300);
-  });
-});
-
-
-</script>
-
+    // Close modals when clicking backdrop
+    document.addEventListener('click', (e) => {
+      if(e.target === menuModal) closeMenuModal();
+      if(e.target === orderModal) closeOrderMenu();
+    });
+  </script>
 </body>
 </html>
